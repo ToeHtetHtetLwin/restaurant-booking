@@ -1,0 +1,38 @@
+<p-menubar
+  [model]="menuItems"
+  styleClass="sticky top-0 z-50 bg-surface-950/90 backdrop-blur-md border-b border-surface-900 px-6 md:px-12 py-3"
+>
+  <ng-template #start>
+    <h2
+      class="text-orange-500 text-2xl font-bold font-serif tracking-tighter cursor-pointer"
+      routerLink="/home"
+    >
+      Asian Cuisine
+    </h2>
+  </ng-template>
+
+  <ng-template #item let-item>
+    <a
+      [routerLink]="item.routerLink"
+      (click)="item.command ? item.command($event) : null"
+      class="flex items-center px-4 py-2 no-underline text-surface-400 hover:text-orange-500 uppercase text-[10px] tracking-[0.2em] font-bold transition-colors cursor-pointer"
+    >
+      <span>{{ item.label }}</span>
+    </a>
+  </ng-template>
+
+  <ng-template #end>
+    <p-button
+      label="Book a Table"
+      (onClick)="showReservation()"
+      severity="warn"
+      size="small"
+      [style]="{
+        borderRadius: '4px',
+        paddingLeft: '1.5rem',
+        paddingRight: '1.5rem',
+      }"
+    >
+    </p-button>
+  </ng-template>
+</p-menubar>

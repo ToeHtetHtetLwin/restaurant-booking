@@ -1,0 +1,58 @@
+<div class="min-h-screen bg-zinc-950 py-20 px-4 md:px-12">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-16">
+      <h1
+        class="text-4xl md:text-6xl font-serif font-bold text-orange-500 mb-4"
+      >
+        Our Full Menu
+      </h1>
+      <p class="text-zinc-500 italic">
+        Authentic flavors, meticulously prepared.
+      </p>
+    </div>
+
+    @for (category of menuCategories(); track category.name) {
+      <div class="mb-16">
+        <h2
+          class="text-2xl font-bold text-white mb-8 border-b border-zinc-800 pb-2 uppercase tracking-widest"
+        >
+          {{ category.name }}
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+          @for (item of category.items; track item.id) {
+            <div
+              class="flex items-center gap-6 group p-2 rounded-lg hover:bg-zinc-900/50 transition-all"
+            >
+              <div class="relative flex-shrink-0">
+                <img
+                  [src]="item.image"
+                  class="w-24 h-24 md:w-28 md:h-28 object-cover rounded-xl border border-zinc-800 group-hover:border-orange-500 transition-colors"
+                  [alt]="item.name"
+                />
+              </div>
+
+              <div class="flex-grow">
+                <div class="flex justify-between items-baseline mb-1">
+                  <h3
+                    class="text-lg font-bold text-white group-hover:text-orange-500 transition-colors"
+                  >
+                    {{ item.name }}
+                  </h3>
+                  <span class="text-orange-400 font-bold ml-4"
+                    >${{ item.price }}</span
+                  >
+                </div>
+                <p
+                  class="text-zinc-500 text-sm italic line-clamp-2 leading-relaxed"
+                >
+                  {{ item.description }}
+                </p>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>

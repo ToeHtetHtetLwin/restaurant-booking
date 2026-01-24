@@ -1,1 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+/* Explicitly import the PrimeUI plugin for Tailwind 4 */
+@plugin "tailwindcss-primeui";
+
+/* Standard PrimeIcons */
+@import "primeicons/primeicons.css";

@@ -1,0 +1,111 @@
+<app-header></app-header>
+
+<router-outlet />
+<p-toast />
+<p-dialog
+  header="Table Reservation"
+  [(visible)]="visible"
+  (onHide)="onDialogClose()"
+  [modal]="true"
+  [style]="{ width: '450px' }"
+  [draggable]="false"
+  appendTo="body"
+  styleClass="custom-dialog"
+>
+  <form [formGroup]="reservationForm" class="flex flex-col gap-6 py-4">
+    <div class="flex flex-col gap-2">
+      <label class="text-zinc-400 text-sm font-medium">Select Date</label>
+      <p-datepicker
+        formControlName="date"
+        [minDate]="minDate"
+        [showIcon]="true"
+        fluid
+        dateFormat="dd/mm/yy"
+      ></p-datepicker>
+      @if (
+        reservationForm.get("date")?.invalid &&
+        reservationForm.get("date")?.touched
+      ) {
+        <small class="text-red-500 italic text-xs"
+          >* ကျေးဇူးပြု၍ ရက်စွဲရွေးချယ်ပါ</small
+        >
+      }
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div class="flex flex-col gap-2">
+        <label class="text-zinc-400 text-sm font-medium">Time Slot</label>
+        <p-select
+          [options]="timeSlots"
+          formControlName="time"
+          placeholder="Select Time"
+          fluid
+        ></p-select>
+        @if (
+          reservationForm.get("time")?.invalid &&
+          reservationForm.get("time")?.touched
+        ) {
+          <small class="text-red-500 italic text-xs">* အချိန်ရွေးပါ</small>
+        }
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-zinc-400 text-sm font-medium">Guests</label>
+        <p-inputnumber
+          formControlName="guest"
+          [showButtons]="true"
+          fluid
+        ></p-inputnumber>
+        @if (
+          reservationForm.get("guest")?.invalid &&
+          reservationForm.get("guest")?.touched
+        ) {
+          <small class="text-red-500 italic text-xs">* အနည်းဆုံး ၁ ယောက်</small>
+        }
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-zinc-400 text-sm font-medium">Phone Number</label>
+      <input
+        pInputText
+        formControlName="phone"
+        placeholder="09-xxx-xxx-xxx"
+        class="w-full bg-zinc-800 border-zinc-700 text-white"
+        [class.border-red-500]="
+          reservationForm.get('phone')?.invalid &&
+          reservationForm.get('phone')?.touched
+        "
+      />
+
+      @if (
+        reservationForm.get("phone")?.touched &&
+        reservationForm.get("phone")?.invalid
+      ) {
+        <div class="flex flex-col">
+          @if (reservationForm.get("phone")?.errors?.["required"]) {
+            <small class="text-red-500 italic text-xs"
+              >* ဖုန်းနံပါတ် လိုအပ်ပါသည်</small
+            >
+          }
+          @if (reservationForm.get("phone")?.errors?.["pattern"]) {
+            <small class="text-red-500 italic text-xs"
+              >* ဖုန်းနံပါတ် ပုံစံမမှန်ပါ (ဂဏန်း ၉ လုံးမှ ၁၁ လုံး)</small
+            >
+          }
+        </div>
+      }
+    </div>
+
+    <p-button
+      label="Confirm Reservation"
+      (onClick)="confirmReservation()"
+      [disabled]="reservationForm.invalid"
+      fluid
+      severity="warn"
+      styleClass="!bg-orange-500 !border-none font-bold uppercase"
+    >
+    </p-button>
+  </form>
+</p-dialog>
+<app-footer></app-footer>
