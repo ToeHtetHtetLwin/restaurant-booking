@@ -1,6 +1,7 @@
 import { httpResource } from '@angular/common/http';
 import { effect, Injectable, signal } from '@angular/core';
 import { MenuItem } from './models/menu-item.model';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class FoodserviceService {
    */
   public menuResource = httpResource<MenuItem[]>(() => {
     return {
-      url: 'https://695e07292556fd22f67712d6.mockapi.io/api/v1/menus',
+     url: `${environment.apiUrl}/menus`,
       method: 'GET',
     };
   });
