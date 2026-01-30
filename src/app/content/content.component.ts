@@ -14,13 +14,11 @@ import { ImageModule } from 'primeng/image';
   standalone: true,
   imports: [
     CommonModule,
-
     CardModule,
     CarouselModule,
     ButtonModule,
     DialogModule,
     InputTextModule,
-
     ImageModule,
     ProgressSpinnerModule,
     CardModule,
@@ -34,12 +32,12 @@ export class ContentComponent implements OnInit {
 
   public isLoading = computed(() => this.#foodService.menuResource.isLoading);
   public isError = computed(() => this.#foodService.menuResource.error);
-  public popularDish = computed(() => {
-    const items = this.#foodService.menuResource.value();
-    return items
-      ? items.filter((dish: any) => dish.category === 'Main').slice(0, 4)
-      : [];
-  });
+  public popularDish = computed(() =>
+    this.#foodService.menuResource
+      .value()
+      ?.filter((dish: any) => dish.category == 'Main')
+      .slice(0, 4),
+  );
 
   public responsiveOptions = [
     {
